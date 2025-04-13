@@ -126,40 +126,37 @@ sectionHeaderUI <- function(title) {
 # Main content (table and chart)
 mainContentUI <- function() {
   tagList(
-    # Section title
-    tags$div(
-      class = "data-table-container",
-      sectionHeaderUI(textOutput("reportTitle")),
+    sectionHeaderUI(textOutput("reportTitle")),
+    
+    fluidRow(
+      bs4Dash::box(
+        title = "Report Tables",
+        status = "primary",
+        solidHeader = TRUE,
+        width = 6,
+        maximizable = TRUE,
+        height = '490px',
+        DTOutput("reportTable", height = "100%", width = "100%")
+      ),
       
-      # Table and chart in two columns
-      tags$div(
-        class = "content-flex-container",
-        
-        # Data table column
-        tags$div(
-          class = "table-container",
-          tags$div(class = "data-table-wrapper", DTOutput("reportTable"))
-        ),
-        
-        # Chart column
-        tags$div(
-          class = "chart-container",
-          plotlyOutput("barChart", height = "500px")
-        )
+      bs4Dash::box(
+        title = "",
+        status = "success",
+        solidHeader = TRUE,
+        width = 6,
+        maximizable = TRUE, 
+        plotlyOutput("barChart", height = "100%", width = "100%")
       )
     ),
     
-    # Footer using config variables
+    # Footer
     tags$div(
       class = "footer-container",
-      # Data as of date section with policy link
       tags$div(
         class = "data-date-section",
         tags$em(paste("Data as of", format(Sys.Date(), "%B %d, %Y"))),
         tags$a(href = "#", class = "policy-link", "Vulnerability Disclosure Policy")
       ),
-      
-      # Main footer description using config variables
       tags$div(
         class = "footer-description",
         tags$p(HTML(FOOTER_INTRO_TEXT)),
@@ -176,8 +173,6 @@ mainContentUI <- function() {
           tags$li(HTML(FOOTER_BSR_REPORTS_TEXT))
         )
       ),
-      
-      # Additional info from config
       tags$div(
         class = "footer-additional-info",
         tags$p(HTML(FOOTER_ADDITIONAL_TEXT))
@@ -185,6 +180,8 @@ mainContentUI <- function() {
     )
   )
 }
+
+
 
 # Function to obtain display name based on file name
 obtener_nombre_mostrar <- function(tipo_archivo) {

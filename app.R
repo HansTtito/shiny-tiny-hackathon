@@ -6,6 +6,8 @@ library(dplyr)
 library(plotly)
 library(arrow)
 library(tidyr)
+library(shinyWidgets)
+library(bs4Dash)
 
 # Cargar los módulos
 source("modules/data_functions.R")
@@ -14,20 +16,35 @@ source("modules/server_functions.R")
 source("modules/config.R")
 
 # UI principal completa
-ui <- fluidPage(
-  # Incluir estilos personalizados
-  tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
-    # Incluir FontAwesome para los iconos si no está ya incluido por shiny
-    tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+library(bs4Dash)
+
+ui <- bs4Dash::dashboardPage(
+  title = "FAERS App",
+  
+  header = bs4Dash::dashboardHeader(
+    title = bs4Dash::dashboardBrand(
+      title = "FAERS",
+      color = "primary"
+    )
   ),
   
-  # Componentes principales
-  headerUI(),
-  summaryStatsUI(inicializar_datos_resumen()),
-  yearButtonsUI(),
-  mainContentUI()
+  sidebar = bs4Dash::dashboardSidebar(disable = TRUE),
+  
+  body = bs4Dash::dashboardBody(
+    # Estilos personalizados
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
+      tags$link(rel = "stylesheet", href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    ),
+    
+    # Componentes principales (los tuyos)
+    headerUI(),
+    summaryStatsUI(inicializar_datos_resumen()),
+    yearButtonsUI(),
+    mainContentUI()
+  )
 )
+
 
 # Servidor completo
 server <- function(input, output, session) {

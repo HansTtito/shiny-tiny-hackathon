@@ -555,7 +555,8 @@ crear_grafico_barras <- function(tipo_reportero, chart_data) {
       borderwidth = 1
     ),
     # Ajustar márgenes para dejar espacio a la leyenda
-    margin = list(l = 50, r = 150, b = 50, t = 50, pad = 4)
+    margin = list(l = 50, r = 150, b = 50, t = 50, pad = 4),
+    autosize = TRUE
   )
 }
 
