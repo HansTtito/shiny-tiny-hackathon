@@ -1,6 +1,7 @@
-.Rproj.user
+.Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
-shiny-tiny-hachkathon.Rproj
-rsconnect
+rsconnect/
+*.Rproj
+*.Rprofile
