@@ -13,9 +13,6 @@ source("modules/ui_elements.R")
 source("modules/server_functions.R")
 source("modules/config.R")
 
-# Inicializar datos para el resumen
-datos_resumen <- inicializar_datos_resumen()
-
 # UI principal completa
 ui <- fluidPage(
   # Incluir estilos personalizados
@@ -76,8 +73,7 @@ server <- function(input, output, session) {
   
   # Renderizar tabla
   output$reportTable <- renderDT({
-    datos <- datos_filtrados()
-    crear_tabla_datos(datos, input$reporterType)
+    crear_tabla_datos(input$reporterType, datos_filtrados())
   })
   
   # Obtener datos para el gráfico
@@ -87,7 +83,7 @@ server <- function(input, output, session) {
   
   # Renderizar gráfico
   output$barChart <- renderPlotly({
-    crear_grafico_barras(datos_grafico(), input$reporterType)
+    crear_grafico_barras(input$reporterType, datos_grafico())
   })
 }
 

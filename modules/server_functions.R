@@ -1,4 +1,5 @@
-crear_tabla_datos <- function(datos_tabla, tipo_reporte = "report_type") {
+crear_tabla_datos <- function(tipo_reporte = "report_type", datos_tabla) {
+  
   library(DT)
   library(dplyr)
   library(tidyr)
@@ -157,7 +158,7 @@ crear_tabla_datos <- function(datos_tabla, tipo_reporte = "report_type") {
 }
 
 # Crear gráfico de barras - Versión mejorada con leyenda a la derecha y categorías para report_type
-crear_grafico_barras <- function(chart_data, tipo_reportero) {
+crear_grafico_barras <- function(tipo_reportero, chart_data) {
   # Importaciones necesarias
   library(dplyr)
   library(plotly)

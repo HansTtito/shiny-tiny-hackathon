@@ -176,24 +176,38 @@ inicializar_datos_resumen <- function() {
   ))
 }
 
-# Obtener datos filtrados por tipo de archivo y período
 obtener_datos_filtrados <- function(tipo_archivo, periodo) {
   # Obtener datos según tipo de archivo
   datos <- leer_datos_filtrados(tipo_archivo)
   
-  # Aplicar filtro de período si es necesario
-  if(!is.null(datos) && periodo == "last10" && "Year" %in% names(datos)) {
-    # Convertir Year a numérico si es character
-    if(is.character(datos$Year)) {
+  # Solo definir head_datos si es report_type y periodo == "last10"
+  head_datos <- NULL
+  
+  if (!is.null(datos) && periodo == "last10") {
+    if (tipo_archivo == "report_type") {
+      head_datos <- datos[1, ]
+      datos <- datos[-1, ]
+    }
+    
+    # Convertir Year a numérico si es necesario
+    if (is.character(datos$Year)) {
       datos$Year <- as.numeric(datos$Year)
     }
     
+    # Filtrar últimos 10 años
     año_actual <- max(datos$Year, na.rm = TRUE)
     datos <- datos %>% filter(Year > año_actual - 10)
   }
   
+  # Volver a agregar cabecera solo si fue eliminada
+  if (!is.null(head_datos)) {
+    datos <- rbind(head_datos, datos)
+  }
+  
   return(datos)
 }
+
+
 
 # Obtener datos para el gráfico (mantiene formato long)
 obtener_datos_grafico <- function(tipo_archivo, periodo) {
