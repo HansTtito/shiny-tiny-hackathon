@@ -5,7 +5,7 @@ account: kevin-ttito
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14508659
-bundleId: 10105488
+bundleId: 10105719
 url: https://kevin-ttito.shinyapps.io/shiny-tiny-hackathon/
 version: 1
 asMultiple: FALSE

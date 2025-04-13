@@ -35,6 +35,7 @@ headerUI <- function() {
 }
 
 # Statistics summary row with all elements in one line
+# Statistics summary row with all elements in one line
 summaryStatsUI <- function(datos) {
   # Crear las opciones para el dropdown con nombres para mostrar
   opciones_mostradas <- setNames(
@@ -45,45 +46,50 @@ summaryStatsUI <- function(datos) {
   tags$div(
     class = "stats-container",
     
-    # Total Reports
+    # Stats boxes wrapper to keep the three stats together
     tags$div(
-      class = "stat-box",
+      class = "stats-boxes-container",
+      
+      # Total Reports
       tags$div(
-        class = "stat-label-report",
-        "Total Reports"
+        class = "stat-box",
+        tags$div(
+          class = "stat-label-report",
+          "Total Reports"
+        ),
+        tags$div(
+          class = "stat-value-report",
+          icon("chart-line", class = "icon-primary"),
+          format(datos$total, big.mark = ",")
+        )
       ),
+      
+      # Serious Reports
       tags$div(
-        class = "stat-value-report",
-        icon("chart-line", class = "icon-primary"),
-        format(datos$total, big.mark = ",")
-      )
-    ),
-    
-    # Serious Reports
-    tags$div(
-      class = "stat-box",
-      tags$div(
-        class = "stat-label-warning",
-        "Serious Reports (excluding death)"
+        class = "stat-box",
+        tags$div(
+          class = "stat-label-warning",
+          "Serious Reports (excluding death)"
+        ),
+        tags$div(
+          class = "stat-value-warning",
+          icon("exclamation-triangle", class = "icon-warning"),
+          format(datos$serious, big.mark = ",")
+        )
       ),
+      
+      # Death Reports
       tags$div(
-        class = "stat-value-warning",
-        icon("exclamation-triangle", class = "icon-warning"),
-        format(datos$serious, big.mark = ",")
-      )
-    ),
-    
-    # Death Reports
-    tags$div(
-      class = "stat-box",
-      tags$div(
-        class = "stat-label-death",
-        "Death Reports"
-      ),
-      tags$div(
-        class = "stat-value-death",
-        icon("skull-crossbones", class = "icon-danger"),
-        format(datos$death, big.mark = ",")
+        class = "stat-box",
+        tags$div(
+          class = "stat-label-death",
+          "Death Reports"
+        ),
+        tags$div(
+          class = "stat-value-death",
+          icon("skull-crossbones", class = "icon-danger"),
+          format(datos$death, big.mark = ",")
+        )
       )
     ),
     
